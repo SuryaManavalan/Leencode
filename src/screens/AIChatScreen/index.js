@@ -4,14 +4,15 @@ import {
   Text, 
   TextInput, 
   TouchableOpacity, 
-  StyleSheet, 
   SafeAreaView, 
   FlatList, 
   KeyboardAvoidingView,
   Platform
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { problems } from '../data/problems';
+import { lightFeedback, mediumFeedback } from '../../utils/haptics';
+import { problems } from '../../data/problems';
+import styles from './styles';
 
 const AIChatScreen = ({ navigation, route }) => {
   const { problemId, code } = route.params || {};
@@ -21,10 +22,10 @@ const AIChatScreen = ({ navigation, route }) => {
     { id: '1', text: `Hi! I'm here to help you with your coding questions. ${problem.title ? `I see you're working on the "${problem.title}" problem.` : ''} How can I assist you today?`, sender: 'ai' }
   ]);
   const [inputText, setInputText] = useState('');
-  const flatListRef = useRef(null);
-
-  const handleSend = () => {
+  const flatListRef = useRef(null);  const handleSend = () => {
     if (inputText.trim() === '') return;
+
+    mediumFeedback();
 
     // Add user message
     const userMessage = {
@@ -74,11 +75,13 @@ const AIChatScreen = ({ navigation, route }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* Header */}
-      <View style={styles.header}>
+      {/* Header */}      <View style={styles.header}>
         <TouchableOpacity 
           style={styles.backButton} 
-          onPress={() => navigation.goBack()}
+          onPress={() => {
+            lightFeedback();
+            navigation.goBack();
+          }}
         >
           <Ionicons name="arrow-back" size={24} color="#333" />
         </TouchableOpacity>
@@ -127,82 +130,5 @@ const AIChatScreen = ({ navigation, route }) => {
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#f5f5f5',
-  },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    backgroundColor: '#fff',
-    borderBottomWidth: 1,
-    borderBottomColor: '#e0e0e0',
-  },
-  backButton: {
-    padding: 8,
-  },
-  headerTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  placeholder: {
-    width: 40,
-  },
-  messagesList: {
-    paddingHorizontal: 16,
-    paddingVertical: 16,
-  },
-  messageBubble: {
-    padding: 12,
-    borderRadius: 16,
-    marginBottom: 12,
-    maxWidth: '80%',
-  },
-  userBubble: {
-    backgroundColor: '#0066ff',
-    alignSelf: 'flex-end',
-    borderBottomRightRadius: 4,
-  },
-  aiBubble: {
-    backgroundColor: '#e5e5ea',
-    alignSelf: 'flex-start',
-    borderBottomLeftRadius: 4,
-  },
-  messageText: {
-    fontSize: 15,
-    lineHeight: 20,
-    color: props => (props.sender === 'user' ? '#fff' : '#000'),
-  },
-  inputContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: 8,
-    backgroundColor: '#fff',
-    borderTopWidth: 1,
-    borderTopColor: '#e0e0e0',
-  },
-  input: {
-    flex: 1,
-    backgroundColor: '#f0f0f0',
-    borderRadius: 20,
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    marginRight: 8,
-    fontSize: 15,
-  },
-  sendButton: {
-    width: 36,
-    height: 36,
-    borderRadius: 18,
-    backgroundColor: '#f0f0f0',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
 
 export default AIChatScreen;
