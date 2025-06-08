@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { View, Text, TouchableOpacity, ScrollView, PanResponder } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView, PanResponder, TextInput } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { lightFeedback } from '../../../utils/haptics';
 import styles from '../styles';
@@ -66,7 +66,14 @@ const ConsoleWindow = ({ consoleOutput, onClose, keyboardVisible }) => {
         </View>
       </View>
       <ScrollView style={{ flex: 1 }} contentContainerStyle={{ flexGrow: 1, paddingBottom: 32 }}>
-        <Text style={styles.consoleText}>{consoleOutput}</Text>
+        <TextInput
+          style={[styles.consoleText, { flex: 1, minHeight: 0, textAlignVertical: 'top', padding: 8 }]}
+          value={consoleOutput}
+          editable={false}
+          multiline
+          scrollEnabled={false}
+          selectTextOnFocus={true}
+        />
       </ScrollView>
     </View>
   );

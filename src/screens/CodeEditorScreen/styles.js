@@ -84,6 +84,17 @@ const styles = StyleSheet.create({
     lineHeight: 20,
     padding: 8,
   },
+  undoRedoButton: {
+    backgroundColor: '#f0f0f0', // Match hideKeyboardButton background
+    borderRadius: 6,
+    padding: 8,
+    marginHorizontal: 4,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  undoRedoButtonDisabled: {
+    backgroundColor: '#e0e0e0', // Light grey for disabled state
+  },
   actionBar: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -92,7 +103,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderTopWidth: 1,
     borderTopColor: '#e0e0e0',
-  },  
+  },
+  actionBarDivider: {
+    width: 1,
+    height: 32,
+    backgroundColor: '#e0e0e0',
+    marginHorizontal: 10,
+    alignSelf: 'center',
+  },
   keyboardActionsContainer: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -150,6 +168,30 @@ const styles = StyleSheet.create({
     fontFamily: Platform.OS === 'ios' ? 'Menlo' : 'monospace',
     fontSize: 12,
     color: '#333',
+  },
+  iphoneKeyButton: {
+    backgroundColor: '#f9f9f9',
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#d1d1d6',
+    paddingVertical: 6,
+    paddingHorizontal: 10,
+    marginHorizontal: 2,
+    minWidth: 28,
+    alignItems: 'center',
+    justifyContent: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.07,
+    shadowRadius: 1,
+    elevation: 1,
+  },
+  iphoneKeyButtonText: {
+    fontSize: 18,
+    color: '#222',
+    fontWeight: '400',
+    textAlign: 'center',
+    letterSpacing: 0.5,
   },
 });
 
