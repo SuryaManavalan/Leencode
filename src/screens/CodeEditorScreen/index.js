@@ -110,7 +110,7 @@ const CodeEditorScreen = ({ navigation, route }) => {
     }, 0);
   };
 
-  // Insert parenthesis handler
+  // Insert parenthesis/bracket/brace handler with auto-pairing
   const handleInsertParen = (paren) => {
     if (!selection) return;
     setUndoStack((prev) => [...prev, code]);
@@ -118,11 +118,19 @@ const CodeEditorScreen = ({ navigation, route }) => {
     const { start, end } = selection;
     const before = code.slice(0, start);
     const after = code.slice(end);
-    const newCode = before + paren + after;
+    const pairs = { '{': '}', '(': ')', '[': ']' };
+    let newCode, newCursor;
+    if (pairs[paren]) {
+      newCode = before + paren + pairs[paren] + after;
+      newCursor = start + 1;
+    } else {
+      newCode = before + paren + after;
+      newCursor = start + 1;
+    }
     setCode(newCode);
-    // Move cursor after the inserted paren
+    // Move cursor between the pair or after the inserted char
     setTimeout(() => {
-      setSelection({ start: start + 1, end: start + 1 });
+      setSelection({ start: newCursor, end: newCursor });
     }, 0);
   };
 
@@ -189,8 +197,9 @@ const CodeEditorScreen = ({ navigation, route }) => {
 
       {/* Code Editor */}
       <CodeEditor 
+        ref={codeInputRef}
         code={code} 
-        setCode={handleSetCode} 
+        setCode={setCode} 
         onSelectionChange={handleSelectionChange}
         selection={selection}
       />

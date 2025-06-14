@@ -96,6 +96,20 @@ const KeyboardActions = ({ onHideKeyboard, visible, onUndo, onRedo, canUndo, can
         >
           <Text style={styles.iphoneKeyButtonText}>]</Text>
         </TouchableOpacity>
+        {/* Single quote button */}
+        <TouchableOpacity
+          style={styles.iphoneKeyButton}
+          onPress={() => onInsertParen && onInsertParen("'")}
+        >
+          <Text style={styles.iphoneKeyButtonText}>'</Text>
+        </TouchableOpacity>
+        {/* Backtick button */}
+        <TouchableOpacity
+          style={styles.iphoneKeyButton}
+          onPress={() => onInsertParen && onInsertParen('`')}
+        >
+          <Text style={styles.iphoneKeyButtonText}>{'`'}</Text>
+        </TouchableOpacity>
         {/* Semicolon button */}
         <TouchableOpacity
           style={styles.iphoneKeyButton}
@@ -116,6 +130,13 @@ const KeyboardActions = ({ onHideKeyboard, visible, onUndo, onRedo, canUndo, can
           onPress={() => onInsertParen && onInsertParen('.')}
         >
           <Text style={styles.iphoneKeyButtonText}>.</Text>
+        </TouchableOpacity>
+        {/* Double quote button */}
+        <TouchableOpacity
+          style={styles.iphoneKeyButton}
+          onPress={() => onInsertParen && onInsertParen('"')}
+        >
+          <Text style={styles.iphoneKeyButtonText}>"</Text>
         </TouchableOpacity>
         {/* Colon button */}
         <TouchableOpacity
